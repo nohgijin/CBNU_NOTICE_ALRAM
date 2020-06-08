@@ -14,5 +14,11 @@ router.get('/api/notice', async (req, res) => {
   res.json(rows)
 });
 
+router.get('/api/notice/detail', async (req, res) => {
+  [rows, fileds] = await promisePool.query(`SELECT * FROM notice_detail WHERE id = ${req.query.id};`)
+
+  res.json(rows)
+});
+
 
 module.exports = router;
