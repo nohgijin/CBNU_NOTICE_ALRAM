@@ -65,7 +65,7 @@ public class Adapter extends BaseAdapter{
     }
 
     /* 아이템 데이터 추가를 위한 함수. 자신이 원하는대로 작성 */
-    public void addItem(String name, String contents, String date) {
+    public void addItem(String id, String name, String contents, String date) {
 
         Item mItem = new Item();
 
