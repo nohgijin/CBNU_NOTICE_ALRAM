@@ -535,7 +535,26 @@ public class config  extends Activity {
         return call;
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if(level == 1) super.onBackPressed();
+        if(level == 2){
+            setInit();
+            category2 = null;
+            level = 1;
+            setTrack();
+        }
+        if(level == 3){
+            setUniversity();
+            category3 = null;
+            level = 2;
+            setTrack();
+        }
+
+
+
+    }
 
 
 
