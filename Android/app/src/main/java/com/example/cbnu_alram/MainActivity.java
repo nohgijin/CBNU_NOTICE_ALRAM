@@ -13,9 +13,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.cbnu_alram.Adapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -26,20 +28,22 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
     private ListView mListView;
     public String fcm_token;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        /* 위젯과 멤버변수 참조 획득 */
         mListView = (ListView)findViewById(R.id.listView);
+
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
@@ -49,6 +53,31 @@ public class MainActivity extends AppCompatActivity {
                 fcm_token = token;
                 loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
                 // send it to server
+            }
+        });
+
+
+
+
+
+//        get("https://api.cmi.jaryapp.kro.kr/api/notice?site=130101&offset=0");
+
+        // listView의 ItemClickListener
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // adapter.getItem(position)의 return 값은 Object 형
+                // 실제 Item의 자료형은 CustomDTO 형이기 때문에
+                // 형변환을 시켜야 getResId() 메소드를 호출할 수 있습니다.
+//                int imgRes = ((CustomDTO)adapter.getItem(position)).getResId();
+
+                // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
+                Intent intent = new Intent(MainActivity.this, Notice.class);
+//                 putExtra(key, value)
+                Object o = ((MyItem)mListView.getItemAtPosition(position)).getId();
+//                Log.d("zxc",o.toString());
+                intent.putExtra("notice_id", o.toString());
+                startActivity(intent);
             }
         });
 
@@ -68,7 +97,23 @@ public class MainActivity extends AppCompatActivity {
                 loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
             }
         });
+
+        Button btnMajor = (Button)findViewById(R.id.btnMajor);
+        btnMajor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/major");
+            }
+        });
+
+        Button btnCommon = (Button)findViewById(R.id.btnCommon);
+        btnCommon.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/common");
+            }
+        });
+
     }
+
 
     public void loadNoticeList(String requestURL) {
 
@@ -124,14 +169,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     Call getNoticeList(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
-//                .header("token",fcm_token)
+                .header("token",fcm_token)
                 .build();
         Call call = client.newCall(request);
         call.enqueue(callback);
         return call;
     }
+
+
+
 }
