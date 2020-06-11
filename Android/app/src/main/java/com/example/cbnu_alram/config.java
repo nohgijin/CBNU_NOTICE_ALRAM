@@ -1,6 +1,5 @@
 package com.example.cbnu_alram;
 
-
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
@@ -12,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +52,47 @@ public class config  extends Activity {
         setContentView(R.layout.config);
 
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                Log.d("FCM : ", token);
+                fcm_token = token;
+                // send it to server
+
+                getAllowSite("https://api.cmi.jaryapp.kro.kr/api/v2/allow/site" , "", new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        // Something went wrong
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+
+                            String str = response.body().string();
+
+                            try {
+                                JSONArray arr = new JSONArray(str);
+
+                                for (int i = 0; i < arr.length(); i++) {
+                                    vector.add(arr.getString(i));
+                                    Log.d("xzxc",arr.getString(i));
+                                }
+
+
+                            }
+                            catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            // Request not successful
+                        }
+                    }
+                });
+
+            }
+        });
         setInit();
 
 
