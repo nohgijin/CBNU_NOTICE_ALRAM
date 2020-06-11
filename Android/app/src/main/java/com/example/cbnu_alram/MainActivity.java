@@ -11,9 +11,14 @@ import okhttp3.Response;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
     private ListView mListView;
+    public String fcm_token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mListView = (ListView)findViewById(R.id.listView);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                Log.d("FCM : ", token);
+                fcm_token = token;
+                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
+                // send it to server
+            }
+        });
+
+
 
         Button btn = (Button)findViewById(R.id.btnConfig);
         btn.setOnClickListener(new View.OnClickListener(){
