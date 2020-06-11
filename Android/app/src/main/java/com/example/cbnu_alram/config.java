@@ -57,6 +57,9 @@ public class config  extends Activity {
     public void setInit(){
         ArrayList<String> arraylist = new ArrayList<String>();
         arraylist.add("전공");
+        arraylist.add("공통");
+
+        setTrack();
 
 
         ArrayAdapter<String> Adapter;
@@ -73,7 +76,7 @@ public class config  extends Activity {
 
                 Object o = list.getItemAtPosition(position);
                 category2 =o.toString();
-
+                setTrack();
                 level++;
                 if(o.toString() == "전공") setUniversity();
                 else setCommon();
@@ -320,10 +323,137 @@ public class config  extends Activity {
 
         final ListView list = (ListView)findViewById(R.id.list);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+
+                final Object o = list.getItemAtPosition(position);
+
+                if(o.toString().contains("🔔")){
+
+                    final String mj = o.toString().replace("🔔","");
+
+                    offAlram("https://api.cmi.jaryapp.kro.kr/api/v2/allow?site_name="+mj , "", new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            // Something went wrong
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                arraylist.set(position, mj);
+                                                Adapter.notifyDataSetChanged();
+
+                                                Toast toast = Toast.makeText(getApplicationContext(), mj + " 공지사항 알림이 해제되었습니다.", Toast.LENGTH_SHORT);
+                                                toast.show();
+
+                                            }
+                                        });
+                                    }
+                                }).start();
+
+//                            String responseStr = response.body().string();
+                                // Do what you want to do with the response.
+                            } else {
+                                // Request not successful
+                            }
+                        }
+                    });
+                }
+                else {
+
+
+                    setAlram("https://api.cmi.jaryapp.kro.kr/api/allow/site", "{\"site_name\":\"" + o.toString() + "\"}", new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+
+
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                arraylist.set(position, o.toString() + " 🔔");
+                                                Adapter.notifyDataSetChanged();
+
+                                                Toast toast = Toast.makeText(getApplicationContext(), o.toString() + " 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
+                                                toast.show();
+
+                                            }
+                                        });
+                                    }
+                                }).start();
+
+//                            String responseStr = response.body().string();
+                                // Do what you want to do with the response.
+                            } else {
+                                // Request not successful
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                arraylist.set(position, o.toString() + " 🔔");
+                                                Adapter.notifyDataSetChanged();
+
+                                                Toast toast = Toast.makeText(getApplicationContext(),  "이미 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
+                                                toast.show();
+
+                                            }
+                                        });
+                                    }
+                                }).start();
+
+                            }
+                        }
+                    });
+                }
+
+
+
+            }
+        });
+
 
         list.setAdapter(Adapter);
     }
 
+    public void setTrack(){
+
+        String track = "";
+        if(category1 != null){
+            track += category1;
+        }
+        if(category2 != null){
+            track += " > "+category2;
+        }
+        if(category3 != null){
+            track += " > "+category3;
+        }
+
+        TextView tv_track = (TextView)findViewById(R.id.textTrack);
+        tv_track.setText(track);
+    }
 
 
 
