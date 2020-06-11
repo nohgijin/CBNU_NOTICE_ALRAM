@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^3.0.0"
+    "puppeteer": "^3.0.0",
+    "fcm-node": "^1.5.2",
   }
 }
