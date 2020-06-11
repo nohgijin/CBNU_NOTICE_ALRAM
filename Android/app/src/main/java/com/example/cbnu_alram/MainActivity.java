@@ -9,7 +9,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -31,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = (ListView)findViewById(R.id.listView);
 
+        Button btn = (Button)findViewById(R.id.btnConfig);
+        btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),config.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
+            }
+        });
     }
 
     public void loadNoticeList(String requestURL) {
