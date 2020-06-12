@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
                 Intent intent = new Intent(MainActivity.this, Notice.class);
 //                 putExtra(key, value)
-                Object o = ((MyItem)mListView.getItemAtPosition(position)).getId();
+                Object o = ((Item)mListView.getItemAtPosition(position)).getId();
 //                Log.d("zxc",o.toString());
                 intent.putExtra("notice_id", o.toString());
                 startActivity(intent);

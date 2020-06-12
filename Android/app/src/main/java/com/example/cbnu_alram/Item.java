@@ -1,7 +1,10 @@
 package com.example.cbnu_alram;
 
+import android.graphics.drawable.Drawable;
+
 public class Item {
 
+    private String id;
     private String name;
     private String contents;
     private String date;
@@ -29,6 +32,9 @@ public class Item {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public void setId(String id){this.id = id;}
+    public String getId(){return id;}
 
 
 
