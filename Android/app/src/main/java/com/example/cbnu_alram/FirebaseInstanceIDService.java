@@ -1,6 +1,5 @@
 package com.example.cbnu_alram;
 
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -38,9 +37,15 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
             Log.d("FCM Log", "알림 메시지: " + remoteMessage.getData().get("body"));
             String messageBody = remoteMessage.getData().get("body");
             String messageTitle = remoteMessage.getData().get("title");
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent notifyIntent = new Intent(this, Notice.class);
+            notifyIntent.putExtra("notice_id", remoteMessage.getData().get("notice_id"));
 
 
-
+            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             String channelId = "Channel ID";
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder =
@@ -50,7 +55,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setContentText(messageBody)
                             .setAutoCancel(true)
                             .setSound(defaultSoundUri)
-                            .setContentIntent();
+                            .setContentIntent(notifyPendingIntent);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 String channelName = "Channel Name";
@@ -91,6 +96,11 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
         Log.d("title",title);
 
 
+        Intent notifyIntent = new Intent(this, Notice.class);
+        notifyIntent.putExtra("notice_id", remoteMessage.getData().get("notice_id"));
+
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
         /**
@@ -119,7 +129,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setChannelId(channel)
                             .setAutoCancel(true)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                            .setContentIntent();
+                            .setContentIntent(notifyPendingIntent);
 
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -134,7 +144,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setContentText(message)
                             .setAutoCancel(true)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                            .setContentIntent();
+                            .setContentIntent(notifyPendingIntent);
 
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
