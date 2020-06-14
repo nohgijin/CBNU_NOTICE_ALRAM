@@ -19,6 +19,13 @@ module.exports = {
         return data
     },
     getContentsHtml: function getContentsHtml() {
+        let IMG = document.querySelectorAll('img')
+        for (img of IMG) {
+            img.src = img.src
+        }
         return document.querySelector('#contents > table > tbody > tr:nth-child(2) > td').outerHTML
+    },
+    getDate: function getDate() {
+        return document.querySelector('#contents > div.bbs_info.clearfix > div.bbs_left.bbs_count > span:nth-child(1) > strong').innerText
     }
 }
