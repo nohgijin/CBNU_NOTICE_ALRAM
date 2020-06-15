@@ -19,7 +19,7 @@
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="37dp"
                 android:text="name.." />
 
             <LinearLayout
@@ -28,14 +28,14 @@
 
                 <TextView
                     android:id="@+id/tv_contents"
-                    android:layout_width="232dp"
+                    android:layout_width="331dp"
                     android:layout_height="wrap_content"
 
                     android:text="contents.." />
 
                 <TextView
                     android:id="@+id/tv_date"
-                    android:layout_width="180dp"
+                    android:layout_width="77dp"
                     android:layout_height="wrap_content"
 
                     android:text="date.." />
