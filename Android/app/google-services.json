@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:31786548419:android:bf1a91d5d8376e02c0f676",
         "android_client_info": {
-          "package_name": "com.example.cbnu_alrami"
+          "package_name": "com.example.cbnu_alram"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "31786548419-fos0fg1o70sass22l76vbaepsivjndpe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.cbnu_alrami",
+            "package_name": "com.example.cbnu_alram",
             "certificate_hash": "8b4da11228115aa1f051b777c17b9af8e321bea3"
           }
         },
