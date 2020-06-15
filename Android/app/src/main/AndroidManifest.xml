@@ -19,7 +19,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".config"></activity>
+        <activity android:name=".List"></activity>
         <activity android:name=".Notice">
             <intent-filter>
                 <action android:name="NoticeActivity" />
