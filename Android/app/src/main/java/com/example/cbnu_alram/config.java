@@ -1,7 +1,10 @@
 package com.example.cbnu_alram;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +41,17 @@ public class config  extends Activity {
     private String category2;
     private String category3;
     public String fcm_token;
+    public boolean alram = false;
+    public String select_site;
+    public int select_position;
     public Vector<String> vector = new Vector<String>();
     public int level = 1;
+    ArrayAdapter<String> Adapter;
+    ArrayList<String> arraylist;
+
+    private String[] mSports = {"공지사항","알림 등록"};
+    private TextView mTvSports;
+    private AlertDialog mSportSelectDialog;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
@@ -50,6 +62,7 @@ public class config  extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate((savedInstanceState));
         setContentView(R.layout.config);
+
 
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
@@ -98,15 +111,109 @@ public class config  extends Activity {
 
     }
 
+    public void initDialog(){
+
+        if(alram) mSports[1] = "알림 해제";
+        else mSports[1] = "알림 등록";
+
+        mSportSelectDialog = new AlertDialog.Builder(config.this)
+                .setItems(mSports, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
+                        if(mSports[i] == "공지사항") {
+                            Intent intent = new Intent(getApplicationContext(), List.class);
+                            intent.putExtra("site", select_site);
+                            startActivity(intent);
+                        }
+                        else if(mSports[i] == "알림 등록"){
+                            setAlram("https://api.cmi.jaryapp.kro.kr/api/allow/site", "{\"site_name\":\"" + select_site + "\"}", new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    if (response.isSuccessful()) {
+
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        arraylist.set(select_position, select_site+ " 🔔");
+                                                        Adapter.notifyDataSetChanged();
+
+                                                        Toast toast = Toast.makeText(getApplicationContext(), select_site+ " 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
+                                                        toast.show();
+
+                                                    }
+                                                });
+                                            }
+                                        }).start();
+
+//                            String responseStr = response.body().string();
+                                        // Do what you want to do with the response.
+                                    }
+                                }
+                            });
+                        }
+                        else if(mSports[i] == "알림 해제"){
+                            offAlram("https://api.cmi.jaryapp.kro.kr/api/v2/allow?site_name="+select_site , "", new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    // Something went wrong
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    if (response.isSuccessful()) {
+
+
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        arraylist.set(select_position, select_site);
+                                                        Adapter.notifyDataSetChanged();
+
+                                                        Toast toast = Toast.makeText(getApplicationContext(), select_site + " 공지사항 알림이 해제되었습니다.", Toast.LENGTH_SHORT);
+                                                        toast.show();
+
+                                                    }
+                                                });
+                                            }
+                                        }).start();
+
+//                            String responseStr = response.body().string();
+                                        // Do what you want to do with the response.
+                                    } else {
+                                        // Request not successful
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                })
+                .setTitle("선택")
+//                .setPositiveButton("확인",null)
+                .setNegativeButton("취소",null)
+                .create();
+    }
+
     public void setInit(){
-        ArrayList<String> arraylist = new ArrayList<String>();
+        arraylist = new ArrayList<String>();
         arraylist.add("전공");
         arraylist.add("공통");
 
         setTrack();
 
 
-        ArrayAdapter<String> Adapter;
         Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
 
         final ListView list = (ListView)findViewById(R.id.list);
@@ -137,7 +244,7 @@ public class config  extends Activity {
 
     public void setUniversity(){
 
-        ArrayList<String> arraylist = new ArrayList<String>();
+        arraylist = new ArrayList<String>();
         arraylist.add("경영대학");
         arraylist.add("공과대학");
         arraylist.add("농업생명환경대학");
@@ -152,7 +259,7 @@ public class config  extends Activity {
         arraylist.add("자연과학대학");
         arraylist.add("전자정보대학");
 
-        ArrayAdapter<String> Adapter;
+
         Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
 
         final ListView list = (ListView)findViewById(R.id.list);
@@ -180,7 +287,7 @@ public class config  extends Activity {
 
     public void setCommon(){
 
-        final ArrayList<String> arraylist = new ArrayList<String>();
+        arraylist = new ArrayList<String>();
         arraylist.add("국제교류본부");
         arraylist.add("학생생활관");
         arraylist.add("충북대학교");
@@ -189,7 +296,7 @@ public class config  extends Activity {
         arraylist.add("취업지원본부");
 
 
-        final ArrayAdapter<String> Adapter;
+
         Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
 
         final ListView list = (ListView)findViewById(R.id.list);
@@ -202,102 +309,113 @@ public class config  extends Activity {
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
 
                 final Object o = list.getItemAtPosition(position);
-
+                select_position = position;
                 if(o.toString().contains("🔔")){
-
-                    final String mj = o.toString().replace("🔔","");
-
-                    offAlram("https://api.cmi.jaryapp.kro.kr/api/v2/allow?site_name="+mj , "", new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            // Something went wrong
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            if (response.isSuccessful()) {
-
-
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                arraylist.set(position, mj);
-                                                Adapter.notifyDataSetChanged();
-
-                                                Toast toast = Toast.makeText(getApplicationContext(), mj + " 공지사항 알림이 해제되었습니다.", Toast.LENGTH_SHORT);
-                                                toast.show();
-
-                                            }
-                                        });
-                                    }
-                                }).start();
-
-//                            String responseStr = response.body().string();
-                                // Do what you want to do with the response.
-                            } else {
-                                // Request not successful
-                            }
-                        }
-                    });
+                    alram = true;
                 }
-                else {
+                else alram = false;
 
+                final String mj = o.toString().replace("🔔","");
+                select_site = mj;
 
-                    setAlram("https://api.cmi.jaryapp.kro.kr/api/allow/site", "{\"site_name\":\"" + o.toString() + "\"}", new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            if (response.isSuccessful()) {
-
-
-
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                arraylist.set(position, o.toString() + " 🔔");
-                                                Adapter.notifyDataSetChanged();
-
-                                                Toast toast = Toast.makeText(getApplicationContext(), o.toString() + " 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
-                                                toast.show();
-
-                                            }
-                                        });
-                                    }
-                                }).start();
-
-//                            String responseStr = response.body().string();
-                                // Do what you want to do with the response.
-                            } else {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                arraylist.set(position, o.toString() + " 🔔");
-                                                Adapter.notifyDataSetChanged();
-
-                                                Toast toast = Toast.makeText(getApplicationContext(),  "이미 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
-                                                toast.show();
-
-                                            }
-                                        });
-                                    }
-                                }).start();
-                            }
-                        }
-                    });
-                }
+                initDialog();
+                mSportSelectDialog.show();
+//
+//                if(o.toString().contains("🔔")){
+//
+//                    final String mj = o.toString().replace("🔔","");
+//
+//                    offAlram("https://api.cmi.jaryapp.kro.kr/api/v2/allow?site_name="+mj , "", new Callback() {
+//                        @Override
+//                        public void onFailure(Call call, IOException e) {
+//                            // Something went wrong
+//                        }
+//
+//                        @Override
+//                        public void onResponse(Call call, Response response) throws IOException {
+//                            if (response.isSuccessful()) {
+//
+//
+//                                new Thread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                arraylist.set(position, mj);
+//                                                Adapter.notifyDataSetChanged();
+//
+//                                                Toast toast = Toast.makeText(getApplicationContext(), mj + " 공지사항 알림이 해제되었습니다.", Toast.LENGTH_SHORT);
+//                                                toast.show();
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }).start();
+//
+////                            String responseStr = response.body().string();
+//                                // Do what you want to do with the response.
+//                            } else {
+//                                // Request not successful
+//                            }
+//                        }
+//                    });
+//                }
+//                else {
+//
+//
+//                    setAlram("https://api.cmi.jaryapp.kro.kr/api/allow/site", "{\"site_name\":\"" + o.toString() + "\"}", new Callback() {
+//                        @Override
+//                        public void onFailure(Call call, IOException e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onResponse(Call call, Response response) throws IOException {
+//                            if (response.isSuccessful()) {
+//
+//
+//
+//                                new Thread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                arraylist.set(position, o.toString() + " 🔔");
+//                                                Adapter.notifyDataSetChanged();
+//
+//                                                Toast toast = Toast.makeText(getApplicationContext(), o.toString() + " 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
+//                                                toast.show();
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }).start();
+//
+////                            String responseStr = response.body().string();
+//                                // Do what you want to do with the response.
+//                            } else {
+//                                new Thread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                arraylist.set(position, o.toString() + " 🔔");
+//                                                Adapter.notifyDataSetChanged();
+//
+//                                                Toast toast = Toast.makeText(getApplicationContext(),  "이미 공지사항 알림이 설정되었습니다.", Toast.LENGTH_SHORT);
+//                                                toast.show();
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }).start();
+//                            }
+//                        }
+//                    });
+//                }
 
 
 
@@ -311,7 +429,7 @@ public class config  extends Activity {
 
     public void setMajor(String major){
 
-        final ArrayList<String> arraylist = new ArrayList<String>();
+        arraylist = new ArrayList<String>();
 
         String[] str = new String[20];
 
@@ -362,7 +480,7 @@ public class config  extends Activity {
             else arraylist.add(str[i]);
         }
 
-        final ArrayAdapter<String> Adapter;
+
         Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylist);
 
         final ListView list = (ListView)findViewById(R.id.list);
@@ -371,6 +489,20 @@ public class config  extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+                final Object o = list.getItemAtPosition(position);
+                select_position = position;
+                if(o.toString().contains("🔔")){
+                    alram = true;
+                }
+                else alram = false;
+
+                final String mj = o.toString().replace("🔔","");
+                select_site = mj;
+
+                initDialog();
+                mSportSelectDialog.show();
+
+                /*
 
                 final Object o = list.getItemAtPosition(position);
 
@@ -474,7 +606,7 @@ public class config  extends Activity {
                 }
 
 
-
+*/
             }
         });
 
