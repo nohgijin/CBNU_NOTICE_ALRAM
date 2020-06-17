@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://agecon.cbnu.ac.kr/dsoft/index.html?pg_idx=26",
     site_id: 30101,

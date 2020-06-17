@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://plantmed.cbnu.ac.kr/dsoft/index.html?pg_idx=20",
     site_id: 30501,

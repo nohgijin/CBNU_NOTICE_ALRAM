@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://humanum.chungbuk.ac.kr/german/selectBbsNttList.do?bbsNo=149&key=506",
     site_id: 110301,

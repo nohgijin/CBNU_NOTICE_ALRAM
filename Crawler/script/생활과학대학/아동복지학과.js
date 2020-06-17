@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://childwelfare.cbnu.ac.kr/main/sub.html?pageCode=26",
     site_id: 60301,

@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://microbio.chungbuk.ac.kr/info/data/data_list.asp?dev=501&part=",
     site_id: 120201,

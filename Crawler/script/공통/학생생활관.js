@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "https://dorm.chungbuk.ac.kr/home/sub.php?menukey=20039",
      site_id: 140201,

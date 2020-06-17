@@ -7,6 +7,11 @@ const {
     send_notice
 } = require('../fm')
 
+
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
 class Page {
     constructor(page, siteList, contentsQueue) {
         this.page = page
@@ -14,7 +19,11 @@ class Page {
         this.contentsQueue = contentsQueue
         this.nextSiteIndex = 0
     }
-
+    
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     async startCollect() {
         const site = this.siteList[this.nextSiteIndex]
 

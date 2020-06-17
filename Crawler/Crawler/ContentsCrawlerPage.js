@@ -8,12 +8,25 @@ const {
     log
 } = require('../Log')
 
+
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
 class Page {
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     constructor(page, queue) {
         this.page = page,
         this.queue = queue
         this.collectStart()
     }
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     async collectStart() {
         // console.log("ㅎㅇ")
         let notice = this.queue.dequeue()

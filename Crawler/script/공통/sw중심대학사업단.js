@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://swapi.cbnu.ac.kr/v1/notice?page=1&limit=20&sort=-createdAt",
     site_id: 140501,

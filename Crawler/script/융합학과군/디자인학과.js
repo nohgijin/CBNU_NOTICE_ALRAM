@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://design.chungbuk.ac.kr/gnuboard5/bbs/board.php?bo_table=community",
     site_id: 90101,

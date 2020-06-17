@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "https://hortisci.chungbuk.ac.kr/html/board/board.php?id=hor_news",
     site_id: 30801,

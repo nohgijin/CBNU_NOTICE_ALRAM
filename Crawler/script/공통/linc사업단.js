@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "https://linc.chungbuk.ac.kr/board/notice.do",
       site_id: 140401,

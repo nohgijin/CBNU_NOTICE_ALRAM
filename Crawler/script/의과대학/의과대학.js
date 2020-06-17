@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://medweb.chungbuk.ac.kr/master.php?pg_idx=23",
     site_id: 100101,

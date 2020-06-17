@@ -6,13 +6,20 @@ const {
 } = require('../db')
 
 
-
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
 class Crawler {
     constructor(siteList) {
         this.siteList = siteList
         this.init()
     }
 
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     async init() {
         // 브라우저 초기화
         this.browser = await puppeteer.launch({

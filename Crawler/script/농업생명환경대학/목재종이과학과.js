@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://wood-paper.chungbuk.ac.kr/index.html?pg_idx=31",
      site_id: 30201,

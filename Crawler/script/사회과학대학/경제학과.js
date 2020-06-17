@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://econ.chungbuk.ac.kr/bbs/board.php?bo_table=bbs2_3",
     site_id: 50101,

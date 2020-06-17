@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://fineart.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID13971124002",
     site_id: 90201,

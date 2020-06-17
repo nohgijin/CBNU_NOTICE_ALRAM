@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://food.cbnu.ac.kr/htm/notice2.php",
     site_id: 30701,

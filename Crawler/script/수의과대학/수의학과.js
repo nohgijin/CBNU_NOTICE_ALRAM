@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "https://vetmed.chungbuk.ac.kr/board/notice",
     site_id: 70201,

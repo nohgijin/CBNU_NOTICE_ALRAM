@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://bse.chungbuk.ac.kr/index.html?pg_idx=48",
      site_id: 30301,

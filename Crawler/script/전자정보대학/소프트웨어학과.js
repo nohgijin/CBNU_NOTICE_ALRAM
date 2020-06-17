@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "https://software.cbnu.ac.kr/bbs/bbs.php?db=notice&pgID=ID12415888101",
     site_id: 130101,

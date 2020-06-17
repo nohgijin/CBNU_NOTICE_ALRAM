@@ -3,31 +3,59 @@ const { getNoticeList } = require('../db')
 const { send_notice } = require('../fm')
 const Page = require('./ContentsCrawlerPage')
 
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+    
 class Queue {
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     constructor(siteList) {
         this._arr = [];
         this.siteList = siteList
     }
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     findSite(notice) {
         for (const site of this.siteList) {
             if (site.site_id == notice.site_id) return site
         }
     }
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     enqueue(item) {
         this._arr.push(item);
     }
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     dequeue() {
         return this._arr.shift();
     }
 }
 
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
 class Crawler {
     constructor(siteList) {
         this.queue = new Queue(siteList);
         this.init()
     }
 
-
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     async init() {
         this.browser = await puppeteer.launch({
             // headless: false,

@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://cbnuarchi.cbnu.ac.kr/index.php?mid=cbnuarchi_sub06",
     site_id: 20201,

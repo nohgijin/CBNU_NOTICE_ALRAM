@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://civil.chungbuk.ac.kr/index.php?mid=civil_sub0301",
     site_id: 20801,

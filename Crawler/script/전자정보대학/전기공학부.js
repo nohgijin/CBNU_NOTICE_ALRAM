@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://koamma.chungbuk.ac.kr/bbs/bbs.php?db=notice",
     site_id: 130201,

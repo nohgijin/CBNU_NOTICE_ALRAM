@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://edu.chungbuk.ac.kr/geo/selectBbsNttList.do?key=270&bbsNo=21",
     site_id: 41101,

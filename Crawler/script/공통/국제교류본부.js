@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "https://cia.chungbuk.ac.kr/9000/list.php?test=on&db_code=notice&category=3&PHPSESSID=c4e6de41dd493e08b6a41d1aff4d6f5a",
      site_id: 140101,

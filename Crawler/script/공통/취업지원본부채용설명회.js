@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://hrd.cbnu.ac.kr/board/board_list.asp?groupno=1&listno=2",
      site_id: "140602",

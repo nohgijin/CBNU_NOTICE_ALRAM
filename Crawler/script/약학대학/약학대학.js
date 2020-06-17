@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://pharm.chungbuk.ac.kr/app/index.html?pg_idx=21",
     site_id: 80101,

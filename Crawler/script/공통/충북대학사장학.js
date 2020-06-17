@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "https://www.chungbuk.ac.kr/site/www/boardList.do?boardSeq=113&key=699",
      site_id: 140302,

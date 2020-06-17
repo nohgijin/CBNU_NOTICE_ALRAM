@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://edu.chungbuk.ac.kr/english/selectBbsNttList.do?key=200&bbsNo=82",
     site_id: 40801,

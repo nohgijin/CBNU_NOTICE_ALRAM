@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "https://animalscience.chungbuk.ac.kr/board/board.php?id=as_news",
     site_id: 31001,

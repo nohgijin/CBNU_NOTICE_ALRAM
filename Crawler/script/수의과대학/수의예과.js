@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "https://vmp.cbnu.ac.kr/dsoft/vmp/index.html?pg_idx=40",
     site_id: 70101,

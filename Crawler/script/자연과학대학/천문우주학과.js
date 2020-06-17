@@ -1,3 +1,8 @@
+/**
+ * This Script Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
 module.exports = {
     url: "http://ast.chungbuk.ac.kr/info/data/data_list.asp?dev=501&part=",
     site_id: 120801,

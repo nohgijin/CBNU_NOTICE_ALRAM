@@ -1,3 +1,9 @@
+/**
+ * This Script Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 module.exports = {
     url: "http://cbnuae.cbnu.ac.kr/index.php?mid=cbnuae_sub05",
     site_id: 20101,
