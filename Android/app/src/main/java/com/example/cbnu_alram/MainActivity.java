@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     private ListView mListView;
     public String fcm_token;
+    public String type = "학과";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +93,19 @@ public class MainActivity extends AppCompatActivity {
         Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
+                if(type == "학과"){
+                    loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/major");
+                }
+                else{
+                    loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/common");
+                }
             }
         });
 
         Button btnMajor = (Button)findViewById(R.id.btnMajor);
         btnMajor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                type = "학과";
                 loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/major");
             }
         });
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnCommon = (Button)findViewById(R.id.btnCommon);
         btnCommon.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                type = "공통";
                 loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/common");
             }
         });
