@@ -35,6 +35,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
+/**
+ * This Class Created by 노기진
+ * Copyright (c) 2020. All rights reserved.
+ */
 public class config  extends Activity {
 
     private String category1 = "전체";
@@ -58,25 +63,37 @@ public class config  extends Activity {
 
 
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate((savedInstanceState));
         setContentView(R.layout.config);
 
+        getAllowSite();
+        setInit();
 
 
+    }
+
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
+    public void getAllowSite(){
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String token = instanceIdResult.getToken();
                 Log.d("FCM : ", token);
                 fcm_token = token;
-                // send it to server
 
                 getAllowSite("https://api.cmi.jaryapp.kro.kr/api/v2/allow/site" , "", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        // Something went wrong
+
                     }
 
                     @Override
@@ -90,9 +107,7 @@ public class config  extends Activity {
 
                                 for (int i = 0; i < arr.length(); i++) {
                                     vector.add(arr.getString(i));
-                                    Log.d("xzxc",arr.getString(i));
                                 }
-
 
                             }
                             catch (JSONException e) {
@@ -106,11 +121,12 @@ public class config  extends Activity {
 
             }
         });
-        setInit();
-
-
     }
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void initDialog(){
 
         if(alram) mSports[1] = "알림 해제";
@@ -206,6 +222,11 @@ public class config  extends Activity {
                 .create();
     }
 
+
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void setInit(){
         arraylist = new ArrayList<String>();
         arraylist.add("전공");
@@ -242,6 +263,11 @@ public class config  extends Activity {
 
     }
 
+
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void setUniversity(){
 
         arraylist = new ArrayList<String>();
@@ -285,6 +311,11 @@ public class config  extends Activity {
         list.setAdapter(Adapter);
     }
 
+
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void setCommon(){
 
         arraylist = new ArrayList<String>();
@@ -427,6 +458,10 @@ public class config  extends Activity {
     }
 
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void setMajor(String major){
 
         arraylist = new ArrayList<String>();
@@ -614,6 +649,11 @@ public class config  extends Activity {
         list.setAdapter(Adapter);
     }
 
+
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     public void setTrack(){
 
         String track = "";
@@ -632,6 +672,10 @@ public class config  extends Activity {
     }
 
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     Call setAlram(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -644,6 +688,10 @@ public class config  extends Activity {
         return call;
     }
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     Call offAlram(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -656,6 +704,10 @@ public class config  extends Activity {
         return call;
     }
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     Call getAllowSite(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -667,6 +719,10 @@ public class config  extends Activity {
         return call;
     }
 
+    /**
+     * This Function Created by 노기진
+     * Copyright (c) 2020. All rights reserved.
+     */
     @Override
     public void onBackPressed() {
 

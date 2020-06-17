@@ -30,8 +30,17 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
 public class Notice  extends Activity {
     @Override
+
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate((savedInstanceState));
         setContentView(R.layout.notice);
@@ -63,20 +72,22 @@ public class Notice  extends Activity {
 
         String notice_id = intent.getStringExtra("notice_id");
 
-        get2("https://api.cmi.jaryapp.kro.kr/api/v2/notice/detail?id="+notice_id);
+        loadNotice("https://api.cmi.jaryapp.kro.kr/api/v2/notice/detail?id="+notice_id);
 
 
     }
 
-    public void get2(String requestURL) {
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
+    public void loadNotice(String requestURL) {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-//                    .addHeader("x-api-key", RestTestCommon.API_KEY)
                     .url(requestURL)
                     .build();
 
-            //비동기 처리 (enqueue 사용)
             client.newCall(request).enqueue(new Callback() {
                 //비동기 처리를 위해 Callback 구현
                 @Override
@@ -86,13 +97,9 @@ public class Notice  extends Activity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    //System.out.println("Response Body is " + response.body().string());
 
                     String str = response.body().string();
 
-                    Log.d("as","xzc");
-
-                    //
                     try {
                         JSONArray arr = new JSONArray(str);
                         final JSONObject json = arr.getJSONObject(0);
@@ -137,14 +144,10 @@ public class Notice  extends Activity {
                         }).start();
 
 
-
-
-                        //Log.d("zxf",arr.getJSONObject(0).getString("title"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    // Log.d("a",response.body().string());
                 }
             });
 

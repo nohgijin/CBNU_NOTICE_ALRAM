@@ -17,6 +17,12 @@ import com.google.firebase.messaging.RemoteMessage;
 import androidx.core.app.NotificationCompat;
 
 
+/**
+ * This Class Created by 조정제
+ * Copyright (c) 2020. All rights reserved.
+ */
+
+
 public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
     /**
@@ -24,6 +30,11 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
      * 아래 토큰은 앱이 설치된 디바이스에 대한 고유값으로 푸시를 보낼때 사용됩니다.
      * **/
 
+
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
@@ -31,6 +42,10 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
         Log.d("Firebase", "FirebaseInstanceIDService : " + s);
     }
 
+    /**
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getNotification() != null) {
@@ -67,8 +82,9 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
     }
 
     /**
-     * 메세지를 받았을 경우 그 메세지에 대하여 구현하는 부분입니다.
-     * **/
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
 //    @Override
     public void onMzessageReceived(RemoteMessage remoteMessage) {
 
@@ -79,19 +95,13 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
 
     /**
-     * remoteMessage 메세지 안애 getData와 getNotification이 있습니다.
-     * 이부분은 차후 테스트 날릴때 설명 드리겠습니다.
-     * **/
+     * This Function Created by 조정제
+     * Copyright (c) 2020. All rights reserved.
+     */
     private void sendNotification(RemoteMessage remoteMessage) {
 
         String title = remoteMessage.getData().get("title") ;
         String message = remoteMessage.getData().get("message");
-
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-//                PendingIntent.FLAG_ONE_SHOT);
-
 
         Log.d("title",title);
 
