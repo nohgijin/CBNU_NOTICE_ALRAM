@@ -47,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    }
+        init();
 
+    }
     /**
      * This Function Created by 조정제
      * Copyright (c) 2020. All rights reserved.
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 String token = instanceIdResult.getToken();
                 Log.d("FCM : ", token);
                 fcm_token = token;
-                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice");
+                loadNoticeList("https://api.cmi.jaryapp.kro.kr/api/v2/notice/major");
                 // send it to server
             }
         });
@@ -142,6 +143,13 @@ public class MainActivity extends AppCompatActivity {
                         JSONArray arr = new JSONArray(str);
 
                         final Adapter mMyAdapter = new Adapter();
+
+
+                        if(arr.length() == 0){
+                            Intent intent = new Intent(getApplicationContext(),config.class);
+                            startActivity(intent);
+                            return;
+                        }
 
 
                         for (int i = 0; i < arr.length(); i++) {
